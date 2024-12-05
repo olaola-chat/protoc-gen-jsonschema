@@ -1,5 +1,9 @@
 module github.com/olaola-chat/protoc-gen-jsonschema
 
+require github.com/pubg/protoc-gen-jsonschema
+
+replace github.com/pubg/protoc-gen-jsonschema => github.com/olaola-chat/protoc-gen-jsonschema
+
 go 1.21.1
 
 require (
