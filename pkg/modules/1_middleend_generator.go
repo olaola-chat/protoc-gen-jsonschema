@@ -190,6 +190,34 @@ func buildFromMessageField(field pgs.Field, fo *proto.FieldOptions) *jsonschema.
 	}
 }
 
+// ProtoIntType 方法：根据 ProtoType 返回类型描述
+func ProtoIntType(pt pgs.ProtoType) string {
+	switch pt {
+	case pgs.Int32T:
+		return "int32"
+	case pgs.Int64T:
+		return "int64"
+	case pgs.UInt32T:
+		return "uint32"
+	case pgs.UInt64T:
+		return "uint64"
+	case pgs.SFixed32:
+		return "sfixed32"
+	case pgs.SFixed64:
+		return "sfixed64"
+	case pgs.SInt32:
+		return "sint32"
+	case pgs.SInt64:
+		return "sint64"
+	case pgs.Fixed32T:
+		return "fixed32"
+	case pgs.Fixed64T:
+		return "fixed64"
+	default:
+		return "integer" // 默认值
+	}
+}
+
 func buildFromMapField(pluginOptions *proto.PluginOptions, field pgs.Field, fo *proto.FieldOptions) *jsonschema.Schema {
 	schema := &jsonschema.Schema{}
 	schema.Title = proto.GetTitleOrEmpty(fo)
@@ -204,7 +232,7 @@ func buildFromMapField(pluginOptions *proto.PluginOptions, field pgs.Field, fo *
 			schema.Type = "string"
 			schema.Format = "int64"
 		} else {
-			schema.Type = "integer"
+			schema.Type = ProtoIntType(protoType)
 			fillSchemaByNumericKeywords(schema, fo.GetNumeric())
 		}
 	} else if protoType.IsNumeric() {
