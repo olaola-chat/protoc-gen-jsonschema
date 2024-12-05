@@ -1,4 +1,4 @@
-module github.com/pubg/protoc-gen-jsonschema
+module github.com/olaola-chat/protoc-gen-jsonschema
 
 go 1.21.1
 
